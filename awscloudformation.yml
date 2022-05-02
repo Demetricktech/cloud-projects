@@ -30,27 +30,4 @@ Resources:
   MyS3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      AccessControl: PublicRead   
-
- #DB
-    MyDBInstance:
-    Type: AWS::RDS::DBInstance
-    Properties:
-      DBInstanceClass: db.t2.micro
-      Engine: mysql
-      AllocatedStorage: "20"
-      VPCSecurityGroups:
-      - !GetAtt [DBEC2SecurityGroup, GroupId]
-      # secretsmanager dynamic reference
-      MasterUsername: '{{resolve:secretsmanager:MyRDSSecret:SecretString:username}}'
-      MasterUserPassword: '{{resolve:secretsmanager:MyRDSSecret:SecretString:password}}'
-  
-  DBEC2SecurityGroup:
-    Type: AWS::EC2::SecurityGroup
-    Properties:
-      GroupDescription: 'Allow access from anywhwere to database'
-      SecurityGroupIngress:
-      - IpProtocol: tcp
-        FromPort: 3306
-        ToPort: 3306
-        CidrIp: "0.0.0.0/0"
+      AccessControl: PublicRead
